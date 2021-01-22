@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace General
 {
@@ -9,6 +11,8 @@ namespace General
         private float _lengthFlay;
         private float _speedRotation;
         
+        public event Action<int> OnCollectPoint;
+        
         private void Awake()
         {
             _lengthFlay = Random.Range(1.0f, 3.0f);
@@ -17,6 +21,7 @@ namespace General
         protected override void Interaction(GameObject player)
         {
             _view.Display(_points);
+            OnCollectPoint?.Invoke(_points);
         }
 
         public void Flay()

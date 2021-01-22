@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Data;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace General
 {
@@ -11,6 +13,11 @@ namespace General
         
         public DisplayBonuses(int totalPoints)
         {
+            if (totalPoints <= 0)
+            {
+                throw new DataException("total points count must be more than 0");
+            }
+            
             _text = Object.FindObjectOfType<Text>();
             _totalPoints = totalPoints;
             Display(0);
