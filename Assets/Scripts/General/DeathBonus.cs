@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace General
 {
-    public class DearthBonus : InteractiveObject, IFlay
+    public class DeathBonus : InteractiveObject, IFlay
     {
         [SerializeField]
         private Vector3 _offcetPosition = Vector3.zero;
+        
+        public event Action OnDeath;
         
         private Vector3 _localPosition;
 
@@ -16,6 +19,7 @@ namespace General
         protected override void Interaction(GameObject player)
         {
             Destroy(player);
+            OnDeath?.Invoke();
         }
 
         public void Flay()

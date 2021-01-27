@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Data;
 using System.Numerics;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
@@ -24,6 +25,15 @@ namespace General
         
         protected override void Interaction(GameObject player)
         {
+            if (_speedBonus == 0)
+            {
+                throw new DataException("bonus speed can't equal 0");
+            } 
+            if (_timeBonus <= 0)
+            {
+                throw new DataException("bonus time must be more than 0");
+            }
+            
             var playerScript = player.GetComponent<Player>();
 
             playerScript.AddSpeed(_speedBonus, _timeBonus);
