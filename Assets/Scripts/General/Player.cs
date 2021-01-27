@@ -24,5 +24,18 @@ namespace General
 
             _rigidbody.AddForce(movement * _speed);
         }
+
+        public void AddSpeed(float value, float time)
+        {
+            this._speed += value;
+            StartCoroutine(RollBackSpeed(value, time));
+
+        }
+        
+        private IEnumerator RollBackSpeed(float value, float waitForSeconds)
+        {
+            yield return new WaitForSeconds(waitForSeconds);
+            this._speed -= value;
+        }
     }
 }
