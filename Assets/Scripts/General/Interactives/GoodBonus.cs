@@ -20,7 +20,6 @@ namespace General
         }
         protected override void Interaction(GameObject player)
         {
-            //_view.Display(_points);
             OnCollectPoint.Invoke(_points);
         }
         

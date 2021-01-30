@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelConfig: {fileID: 11400000, guid: f8be935875b84db42bf26d26b9476730, type: 2}
+  _gameConfig: {fileID: 11400000, guid: 9eb9d2d61cfe4024da991e3dfd28c421, type: 2}
 --- !u!4 &1131027966
 Transform:
   m_ObjectHideFlags: 0

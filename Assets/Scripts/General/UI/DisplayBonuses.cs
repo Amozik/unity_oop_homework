@@ -8,7 +8,6 @@ namespace General
     public class DisplayBonuses
     {
         private Text _text;
-        private int _point;
         private int _totalPoints;
         
         public DisplayBonuses(GameObject score, int totalPoints)

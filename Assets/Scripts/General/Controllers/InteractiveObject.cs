@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace General
 {
-    public abstract class InteractiveObject : MonoBehaviour, IExecute
+    public abstract class InteractiveObject : MonoBehaviour, IInitialization, IExecute
     {
         private bool _isInteractable = true;
 

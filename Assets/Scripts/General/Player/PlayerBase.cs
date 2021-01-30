@@ -8,13 +8,6 @@ namespace General
     {
         public float Speed = 3f;
 
-        // private Rigidbody _rigidbody;
-        //
-        // private void Start()
-        // {
-        //     _rigidbody = GetComponent<Rigidbody>();
-        // }
-        
         public abstract void Move(float x, float y, float z);
 
         public void AddSpeed(float value, float time)

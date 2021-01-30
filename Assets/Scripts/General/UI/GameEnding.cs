@@ -22,7 +22,7 @@ namespace General
             _finishGameLabel.text = string.Empty;
             
             _restartButton = endGame.GetComponentInChildren<Button>();
-            _restartButton.onClick.AddListener(onRestartClick);
+            _restartButton.onClick.AddListener(OnRestartClick);
             
             _canvasGroup = endGame.GetComponentInChildren<CanvasGroup>();
             _canvasGroup.alpha = 0;
@@ -48,7 +48,7 @@ namespace General
             }
         }
 
-        private void onRestartClick()
+        private void OnRestartClick()
         {
             RestartGame?.Invoke();
         }
