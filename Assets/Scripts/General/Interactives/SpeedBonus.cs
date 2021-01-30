@@ -34,14 +34,14 @@ namespace General
                 throw new DataException("bonus time must be more than 0");
             }
             
-            var playerScript = player.GetComponent<Player>();
+            var playerScript = player.GetComponent<PlayerBase>();
 
             playerScript.AddSpeed(_speedBonus, _timeBonus);
         }
         
         public override void Execute(float deltaTime)
         {
-            //if(!IsInteractable){return;}
+            if(!IsInteractable){return;}
             Flay();
         }
 

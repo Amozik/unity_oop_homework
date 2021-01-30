@@ -1,48 +1,98 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections;
+using General.Controllers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace General
 {
-    public class GameController : MonoBehaviour
+    public class GameController : MonoBehaviour, IDisposable
     {
         [SerializeField] 
         private LevelConfig _levelConfig;
 
         [SerializeField]
-        private CameraController _cameraController;
-
-        [SerializeField]
         private GameEnding _gameEnding;
         
-        private List<InteractiveObject> _interactiveObjects;
+        public static GameController Instance = null;
+        
+        private ListExecuteObject _interactiveObjects;
+        private DisplayBonuses _displayBonuses;
+        private CameraController _cameraController;
+        private InputController _inputController;
+        private int _points;
+        private Reference _reference;
 
         private void Awake()
         {
-            _interactiveObjects = FindObjectsOfType<InteractiveObject>().ToList();
-            var displayBonuses = new DisplayBonuses(_levelConfig.totalPoints);
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+
+            Object.Instantiate(_levelConfig.prefab);
+            
+            _interactiveObjects = new ListExecuteObject();
+
+            _reference = new Reference();
+            
+            _cameraController = new CameraController(_reference.PlayerBaseBall.transform, _reference.MainCamera.transform);
+            _interactiveObjects.AddExecuteObject(_cameraController);
+            
+            _inputController = new InputController(_reference.PlayerBaseBall);
+            _interactiveObjects.AddExecuteObject(_inputController);
+            
+            _displayBonuses = new DisplayBonuses(_reference.Score, _levelConfig.totalPoints);
+            
+            _gameEnding = new GameEnding(_reference.EndGame)
+            {
+                RestartGame = RestartGame
+            };
+
             foreach (var interactiveObject in _interactiveObjects)
             {
-                interactiveObject.Initialization(displayBonuses);
+                //interactiveObject.Initialization(displayBonuses);
 
                 if (interactiveObject is GoodBonus goodBonus)
                 {
                     goodBonus.OnCollectPoint += OnCollectPoint;
                 } else if (interactiveObject is DeathBonus deathBonus)
                 {
-                    deathBonus.OnDeath += _gameEnding.Display;
+                    deathBonus.OnDeath += OnDeathPlayer;
                 }
             }
         }
 
+        private void RestartGame()
+        {
+            SceneManager.LoadScene(0);
+            Time.timeScale = 1.0f;
+        }
+        
+        private void OnDeathPlayer()
+        {
+            Time.timeScale = 0.0f;
+            _gameEnding.Display("Game Over");
+        }
+        
         private void OnCollectPoint(int points)
         {
+            _points += points;
+            _displayBonuses.Display(points);
             _cameraController.Shake(.5f,.5f );
+
+            if (_points == _levelConfig.totalPoints)
+            {
+                _gameEnding.Display("You Win");
+            }
         }
 
         private void Update()
         {
-            for (var i = 0; i < _interactiveObjects.Count; i++)
+            var deltaTime = Time.deltaTime;
+            
+            for (var i = 0; i < _interactiveObjects.Length; i++)
             {
                 var interactiveObject = _interactiveObjects[i];
 
@@ -50,20 +100,24 @@ namespace General
                 {
                     continue;
                 }
-
-                if (interactiveObject is IFlay flay)
+                
+                interactiveObject.Execute(deltaTime);
+            }
+        }
+        
+        public void Dispose()
+        {
+            foreach (var interactiveObject in _interactiveObjects)
+            {
+                if (interactiveObject is GoodBonus goodBonus)
                 {
-                    flay.Flay();
-                }
-                if (interactiveObject is IFlicker flicker)
+                    goodBonus.OnCollectPoint -= OnCollectPoint;
+                } else if (interactiveObject is DeathBonus deathBonus)
                 {
-                    flicker.Flicker();
-                }
-                if (interactiveObject is IRotation rotation)
-                {
-                    rotation.Rotation();
+                    deathBonus.OnDeath -= OnDeathPlayer;
                 }
             }
         }
+
     }
 }

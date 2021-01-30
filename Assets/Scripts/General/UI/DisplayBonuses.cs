@@ -1,32 +1,31 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
+using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
+
 
 namespace General
 {
-    public class DisplayBonuses : IView
+    public class DisplayBonuses
     {
         private Text _text;
         private int _point;
         private int _totalPoints;
         
-        public DisplayBonuses(int totalPoints)
+        public DisplayBonuses(GameObject score, int totalPoints)
         {
             if (totalPoints <= 0)
             {
                 throw new DataException("total points count must be more than 0");
             }
             
-            _text = Object.FindObjectOfType<Text>();
+            _text = score.GetComponentInChildren<Text>();
             _totalPoints = totalPoints;
             Display(0);
         }
         
-        public void Display(int value)
+        public void Display(int points)
         {
-            _point += value;
-            _text.text = $"Вы набрали {_point} из {_totalPoints}";
+            _text.text = $"Вы набрали {points} из {_totalPoints}";
         }
     }
 }

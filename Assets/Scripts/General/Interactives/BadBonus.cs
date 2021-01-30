@@ -22,7 +22,7 @@ namespace General
         
         public override void Execute(float deltaTime)
         {
-            //if(!IsInteractable){return;}
+            if(!IsInteractable){return;}
             Flay();
             Flicker();
         }

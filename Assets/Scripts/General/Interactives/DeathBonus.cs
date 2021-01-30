@@ -18,13 +18,13 @@ namespace General
         }
         protected override void Interaction(GameObject player)
         {
-            Destroy(player);
+            //Destroy(player);
             OnDeath?.Invoke();
         }
         
         public override void Execute(float deltaTime)
         {
-            //if(!IsInteractable){return;}
+            if(!IsInteractable){return;}
             Flay();
         }
 

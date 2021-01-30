@@ -4,30 +4,22 @@ using UnityEngine;
 
 namespace General
 {
-    public class Player : MonoBehaviour
+    public abstract class PlayerBase : MonoBehaviour
     {
-        [SerializeField] private float _speed = 3f;
+        public float Speed = 3f;
 
-        private Rigidbody _rigidbody;
-
-        private void Start()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-        }
-
-        protected void Move()
-        {
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetAxis("Vertical");
-
-            Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
-
-            _rigidbody.AddForce(movement * _speed);
-        }
+        // private Rigidbody _rigidbody;
+        //
+        // private void Start()
+        // {
+        //     _rigidbody = GetComponent<Rigidbody>();
+        // }
+        
+        public abstract void Move(float x, float y, float z);
 
         public void AddSpeed(float value, float time)
         {
-            this._speed += value;
+            this.Speed += value;
             StartCoroutine(RollBackSpeed(value, time));
 
         }
@@ -35,7 +27,7 @@ namespace General
         private IEnumerator RollBackSpeed(float value, float waitForSeconds)
         {
             yield return new WaitForSeconds(waitForSeconds);
-            this._speed -= value;
+            this.Speed -= value;
         }
     }
 }

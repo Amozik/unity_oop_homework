@@ -6,5 +6,6 @@ namespace General
     public class LevelConfig : ScriptableObject
     {
         public int totalPoints;
+        public GameObject prefab;
     }
 }

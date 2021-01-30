@@ -20,13 +20,13 @@ namespace General
         }
         protected override void Interaction(GameObject player)
         {
-            _view.Display(_points);
+            //_view.Display(_points);
             OnCollectPoint.Invoke(_points);
         }
         
         public override void Execute(float deltaTime)
         {
-            //if(!IsInteractable){return;}
+            if(!IsInteractable){return;}
             Flay();
             Rotation(deltaTime);
         }

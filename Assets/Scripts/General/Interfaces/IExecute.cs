@@ -1,4 +1,4 @@
-﻿namespace General.Interface
+﻿namespace General.Interfaces
 {
     public interface IExecute
     {
