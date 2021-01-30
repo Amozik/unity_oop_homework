@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using General.Interfaces;
+using UnityEngine;
 
 namespace General
 {
-    public abstract class InteractiveObject : MonoBehaviour
+    public abstract class InteractiveObject : MonoBehaviour, IExecute
     {
         protected IView _view;
         
@@ -13,10 +14,12 @@ namespace General
                 return;
             }
             Interaction(other.gameObject);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         protected abstract void Interaction(GameObject player);
+        public abstract void Execute(float deltaTime);
 
         public void Initialization(IView view)
         {

@@ -38,6 +38,12 @@ namespace General
 
             playerScript.AddSpeed(_speedBonus, _timeBonus);
         }
+        
+        public override void Execute(float deltaTime)
+        {
+            //if(!IsInteractable){return;}
+            Flay();
+        }
 
         public void Flay()
         {

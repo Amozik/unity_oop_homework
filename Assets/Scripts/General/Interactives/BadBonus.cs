@@ -19,10 +19,16 @@ namespace General
         {
            
         }
+        
+        public override void Execute(float deltaTime)
+        {
+            //if(!IsInteractable){return;}
+            Flay();
+            Flicker();
+        }
 
         public void Flay()
         {
-            
             transform.localPosition = new Vector3(_localPosition.x + Mathf.PingPong(Time.time, _lengthFlay) - _lengthFlay/2,
                 _localPosition.y, 
                 _localPosition.z);

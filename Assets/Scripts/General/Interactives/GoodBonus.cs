@@ -11,7 +11,7 @@ namespace General
         private float _lengthFlay;
         private float _speedRotation;
         
-        public event Action<int> OnCollectPoint;
+        public event Action<int> OnCollectPoint = delegate(int i) {  };
         
         private void Awake()
         {
@@ -21,7 +21,14 @@ namespace General
         protected override void Interaction(GameObject player)
         {
             _view.Display(_points);
-            OnCollectPoint?.Invoke(_points);
+            OnCollectPoint.Invoke(_points);
+        }
+        
+        public override void Execute(float deltaTime)
+        {
+            //if(!IsInteractable){return;}
+            Flay();
+            Rotation(deltaTime);
         }
 
         public void Flay()
@@ -33,9 +40,9 @@ namespace General
             transform.localPosition = localPosition;
         }
 
-        public void Rotation()
+        public void Rotation(float deltaTime)
         {
-            transform.Rotate(Vector3.up * (Time.deltaTime * _speedRotation), Space.World);
+            transform.Rotate(Vector3.up * (deltaTime * _speedRotation), Space.World);
         }
     }
 }

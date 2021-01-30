@@ -21,6 +21,12 @@ namespace General
             Destroy(player);
             OnDeath?.Invoke();
         }
+        
+        public override void Execute(float deltaTime)
+        {
+            //if(!IsInteractable){return;}
+            Flay();
+        }
 
         public void Flay()
         {

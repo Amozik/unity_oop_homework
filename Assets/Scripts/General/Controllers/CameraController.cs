@@ -1,36 +1,37 @@
 ﻿using System;
 using System.Collections;
+using General.Interfaces;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace General
 {
-    public class CameraController : MonoBehaviour
+    public class CameraController : IExecute
     {
-        [SerializeField]
-        private Player _player;
-
+        private Transform _player;
+        private Transform _mainCamera;
+        
         private Vector3 _offset;
         private Vector3 _originalOffset;
 
-        private void Start()
+        public CameraController(Transform player, Transform mainCamera)
         {
-            _offset = transform.position - _player.transform.position;
+            _player = player;
+            _mainCamera = mainCamera;
+            _mainCamera.LookAt(_player);
+            _offset = _mainCamera.position - _player.position;
         }
 
-        private void LateUpdate()
+        public void Execute(float deltaTime)
         {
-            if (_player != null)
-            {
-                transform.position = _player.transform.position + _offset;
-            }
+            _mainCamera.position = _player.position + _offset;
         }
         
         public void Shake (float duration, float amount)
         {
             _originalOffset = _offset;
-            StopAllCoroutines();
-            StartCoroutine(cShake(duration, amount));
+            GameController.Instance.StopCoroutine(cShake(duration, amount));
+            GameController.Instance.StartCoroutine(cShake(duration, amount));
         }
 
         private IEnumerator cShake (float duration, float amount) {
