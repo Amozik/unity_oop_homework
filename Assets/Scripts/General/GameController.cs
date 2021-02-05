@@ -8,6 +8,12 @@ namespace General
     {
         [SerializeField] 
         private LevelConfig _levelConfig;
+
+        [SerializeField]
+        private CameraController _cameraController;
+
+        [SerializeField]
+        private GameEnding _gameEnding;
         
         private List<InteractiveObject> _interactiveObjects;
 
@@ -18,7 +24,20 @@ namespace General
             foreach (var interactiveObject in _interactiveObjects)
             {
                 interactiveObject.Initialization(displayBonuses);
+
+                if (interactiveObject is GoodBonus goodBonus)
+                {
+                    goodBonus.OnCollectPoint += OnCollectPoint;
+                } else if (interactiveObject is DeathBonus deathBonus)
+                {
+                    deathBonus.OnDeath += _gameEnding.Display;
+                }
             }
+        }
+
+        private void OnCollectPoint(int points)
+        {
+            _cameraController.Shake(.5f,.5f );
         }
 
         private void Update()
