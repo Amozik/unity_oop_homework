@@ -1,0 +1,32 @@
+﻿using General.Interfaces;
+using UnityEngine;
+
+namespace General
+{
+    public class InputController : IExecute
+    {
+        private readonly IUserInputProxy _horizontal;
+        private readonly IUserInputProxy _vertical;
+        
+        private readonly PlayerBase _playerBase;
+        
+        public InputController(PlayerBase player)
+        {
+            _playerBase = player;
+        }
+        
+        public InputController((IUserInputProxy inputHorizontal, IUserInputProxy inputVertical) input)
+        {
+            _horizontal = input.inputHorizontal;
+            _vertical = input.inputVertical;
+        }
+        
+        public void Execute(float deltaTime)
+        {
+            _horizontal.GetAxis();
+            _vertical.GetAxis();
+            
+            
+        }
+    }
+}

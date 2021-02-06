@@ -1,69 +1,51 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using General.Controllers;
 using UnityEngine;
+
 
 namespace General
 {
-    public class GameController : MonoBehaviour
+    public class GameController : MonoBehaviour, IDisposable
     {
         [SerializeField] 
-        private LevelConfig _levelConfig;
-
-        [SerializeField]
-        private CameraController _cameraController;
-
-        [SerializeField]
-        private GameEnding _gameEnding;
+        private GameConfig _gameConfig;
         
-        private List<InteractiveObject> _interactiveObjects;
+        public static GameController Instance = null;
+        
+        private ControllersHandler _controllersHandler;
 
         private void Awake()
         {
-            _interactiveObjects = FindObjectsOfType<InteractiveObject>().ToList();
-            var displayBonuses = new DisplayBonuses(_levelConfig.totalPoints);
-            foreach (var interactiveObject in _interactiveObjects)
+            if (Instance == null)
             {
-                interactiveObject.Initialization(displayBonuses);
-
-                if (interactiveObject is GoodBonus goodBonus)
-                {
-                    goodBonus.OnCollectPoint += OnCollectPoint;
-                } else if (interactiveObject is DeathBonus deathBonus)
-                {
-                    deathBonus.OnDeath += _gameEnding.Display;
-                }
+                Instance = this;
             }
+
+            _controllersHandler = new ControllersHandler();
+
+            var gameInitialization = new GameInitialization(_controllersHandler, _gameConfig);
         }
 
-        private void OnCollectPoint(int points)
+        private void Start()
         {
-            _cameraController.Shake(.5f,.5f );
+            _controllersHandler.Initialization();
         }
 
         private void Update()
         {
-            for (var i = 0; i < _interactiveObjects.Count; i++)
-            {
-                var interactiveObject = _interactiveObjects[i];
-
-                if (interactiveObject == null)
-                {
-                    continue;
-                }
-
-                if (interactiveObject is IFlay flay)
-                {
-                    flay.Flay();
-                }
-                if (interactiveObject is IFlicker flicker)
-                {
-                    flicker.Flicker();
-                }
-                if (interactiveObject is IRotation rotation)
-                {
-                    rotation.Rotation();
-                }
-            }
+            var deltaTime = Time.deltaTime;
+            _controllersHandler.Execute(deltaTime);
+        }
+        
+        private void LateUpdate()
+        {
+            var deltaTime = Time.deltaTime;
+            _controllersHandler.LateExecute(deltaTime);
+        }
+        
+        public void Dispose()
+        {
+            _controllersHandler.Cleanup();
         }
     }
 }
