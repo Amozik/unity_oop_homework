@@ -37,7 +37,8 @@ namespace General.Controllers
             controllersHandler.Add(new InputController(inputInitialization.GetInput()));
             controllersHandler.Add(new MoveController(inputInitialization.GetInput(), player));
             controllersHandler.Add(new BonusController(bonusInitialization.GetEffectBonuses()));
-            controllersHandler.Add(new CameraController(player.transform, camera.transform, Bonuses));
+            controllersHandler.Add(new CameraController(player.transform, camera.transform));
+            controllersHandler.Add(new CameraShakeController(camera.transform, Bonuses));
             controllersHandler.Add(new UiController(uiInitialization, Bonuses, data.levelConfig.totalPoints));
         }
 
