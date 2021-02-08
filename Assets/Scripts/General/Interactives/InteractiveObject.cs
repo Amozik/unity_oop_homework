@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace General
 {
-    public abstract class InteractiveObject : MonoBehaviour, IInitialization, IExecute
+    public abstract class InteractiveObject : MonoBehaviour, IInitialization, IEffect
     {
         private bool _isInteractable = true;
 
@@ -28,7 +28,7 @@ namespace General
         }
 
         protected abstract void Interaction(GameObject player);
-        public abstract void Execute(float deltaTime);
+        public abstract void PlayEffect(float deltaTime);
 
         public void Initialization()
         {

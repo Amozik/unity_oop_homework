@@ -22,7 +22,7 @@ namespace General
             OnDeath?.Invoke();
         }
         
-        public override void Execute(float deltaTime)
+        public override void PlayEffect(float deltaTime)
         {
             if(!IsInteractable){return;}
             Flay();
