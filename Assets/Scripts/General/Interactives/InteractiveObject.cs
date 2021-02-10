@@ -1,11 +1,15 @@
-﻿using General.Interfaces;
+﻿using System;
+using General.Interfaces;
+using SaveData.Models;
 using UnityEngine;
 
 namespace General
 {
-    public abstract class InteractiveObject : MonoBehaviour, IInitialization, IEffect
+    public abstract class InteractiveObject : MonoBehaviour, IInitialization, IEffect, IEquatable<InteractiveObject>
     {
         private bool _isInteractable = true;
+
+        public string Uid;
 
         protected bool IsInteractable
         {
@@ -33,6 +37,19 @@ namespace General
         public void Initialization()
         {
             IsInteractable = true;
+        }
+
+        public bool Equals(InteractiveObject other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return GetType() == other.GetType();
+        }
+
+        public bool Equals(Bonus other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            return GetType() == other.GetType() && transform.localPosition.Equals(other.Position);
         }
     }
 }

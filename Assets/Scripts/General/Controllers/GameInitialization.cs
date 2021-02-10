@@ -13,7 +13,7 @@ namespace General.Controllers
 
             var levelInitialization = new LevelInitialization(data.levelConfig);
 
-            var bonusInitialization = new BonusInitialization();
+            var bonusInitialization = new BonusInitialization(data.bonusesConfig.BonusesConfigs);
             Bonuses = bonusInitialization.GetBonuses();
 
             foreach (var bonus in Bonuses)
