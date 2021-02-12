@@ -20,7 +20,7 @@ namespace General
            
         }
         
-        public override void Execute(float deltaTime)
+        public override void PlayEffect(float deltaTime)
         {
             if(!IsInteractable){return;}
             Flay();

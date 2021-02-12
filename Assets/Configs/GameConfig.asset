@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4175379895629799651, guid: c74bc68f315fad440859a0d368ce8cef, type: 3}
   levelConfig: {fileID: 11400000, guid: f8be935875b84db42bf26d26b9476730, type: 2}
+  bonusesConfig: {fileID: 11400000, guid: 7091221aa5479c94694cf0ba5678c8fb, type: 2}
   uiConfig: {fileID: 11400000, guid: 014e51ee5afb78e4cba67165cfe48acf, type: 2}
