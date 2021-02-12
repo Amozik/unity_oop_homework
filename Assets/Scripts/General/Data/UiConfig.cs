@@ -7,5 +7,6 @@ namespace General
     {
         public GameObject score;
         public GameObject endGame;
+        public RadarConfig radarConfig;
     }
 }

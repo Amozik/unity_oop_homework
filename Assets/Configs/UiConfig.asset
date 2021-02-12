@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: {fileID: 91034528185703561, guid: 6400fc688e11fb14db2934074ac12559, type: 3}
   endGame: {fileID: 4956824870367723445, guid: 0488f50b47915af448f20690393449f9, type: 3}
+  radarConfig: {fileID: 11400000, guid: f34545a7e72f73940b144f30b8a94504, type: 2}

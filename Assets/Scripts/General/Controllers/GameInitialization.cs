@@ -39,6 +39,7 @@ namespace General.Controllers
             controllersHandler.Add(new BonusController(bonusInitialization.GetEffectBonuses()));
             controllersHandler.Add(new CameraController(player.transform, camera.transform));
             controllersHandler.Add(new CameraShakeController(camera.transform, Bonuses));
+            controllersHandler.Add(new RadarController(data.uiConfig.radarConfig, uiInitialization.Radar, player.transform, Bonuses));
             controllersHandler.Add(new UiController(uiInitialization, Bonuses, data.levelConfig.totalPoints));
         }
 

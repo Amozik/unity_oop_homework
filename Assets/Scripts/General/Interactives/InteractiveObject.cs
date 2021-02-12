@@ -11,7 +11,7 @@ namespace General
 
         public string Uid;
 
-        protected bool IsInteractable
+        public bool IsInteractable
         {
             get { return _isInteractable; }
             private set

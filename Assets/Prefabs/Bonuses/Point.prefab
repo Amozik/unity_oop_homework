@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 950522056169487286}
   m_Layer: 0
   m_Name: Point
-  m_TagString: Untagged
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,4 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd93e0265ccb4602b8ad7f6d744e795d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Uid: 
   _points: 1
