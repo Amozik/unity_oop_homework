@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb92e32539e494499e9f0279ac974e3, type: 3}
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
+  _bonusesConfig: {fileID: 11400000, guid: 7091221aa5479c94694cf0ba5678c8fb, type: 2}
   totalPoints: 3
-  prefab: {fileID: 5178186269523971923, guid: 91f52a44d645cf84ea590be90d2aa59b, type: 3}
+  levelPrefab: {fileID: 5178186269523971923, guid: 91f52a44d645cf84ea590be90d2aa59b, type: 3}

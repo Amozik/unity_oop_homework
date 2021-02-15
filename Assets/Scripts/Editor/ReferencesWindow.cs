@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Linq;
 
-namespace FunkyBay.Editor
+namespace Common.Editor
 {
     internal class ReferencesWindow : EditorWindow
     {

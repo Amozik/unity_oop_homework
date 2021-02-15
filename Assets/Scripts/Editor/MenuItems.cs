@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace FunkyBay.Editor
+namespace Common.Editor
 {
     public class MenuItems
     {
