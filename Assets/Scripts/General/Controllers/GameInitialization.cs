@@ -13,7 +13,7 @@ namespace General.Controllers
 
             var levelInitialization = new LevelInitialization(data.levelConfig);
 
-            var bonusInitialization = new BonusInitialization();
+            var bonusInitialization = new BonusInitialization(data.bonusesConfig.BonusesConfigs);
             Bonuses = bonusInitialization.GetBonuses();
 
             foreach (var bonus in Bonuses)
@@ -36,7 +36,10 @@ namespace General.Controllers
             controllersHandler.Add(uiInitialization);
             controllersHandler.Add(new InputController(inputInitialization.GetInput()));
             controllersHandler.Add(new MoveController(inputInitialization.GetInput(), player));
-            controllersHandler.Add(new CameraController(player.transform, camera.transform, Bonuses));
+            controllersHandler.Add(new BonusController(bonusInitialization.GetEffectBonuses()));
+            controllersHandler.Add(new CameraController(player.transform, camera.transform));
+            controllersHandler.Add(new CameraShakeController(camera.transform, Bonuses));
+            controllersHandler.Add(new RadarController(data.uiConfig.radarConfig, uiInitialization.Radar, player.transform, Bonuses));
             controllersHandler.Add(new UiController(uiInitialization, Bonuses, data.levelConfig.totalPoints));
         }
 

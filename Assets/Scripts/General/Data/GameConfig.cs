@@ -7,6 +7,7 @@ namespace General
     {
         public PlayerBall playerPrefab;
         public LevelConfig levelConfig;
+        public BonusesConfig bonusesConfig;
         public UiConfig uiConfig;
     }
 }
