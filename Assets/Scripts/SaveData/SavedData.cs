@@ -9,12 +9,7 @@ namespace SaveData
     public sealed class SavedData
     {
         public List<Bonus> bonuses;
-
-        // public string Name;
-        // public Vector3Serializable Position;
-        // public bool IsEnabled;
-
-        // public override string ToString() => $"Name {Name} Position {Position} IsVisible {IsEnabled}";
+        public Player player;
 
         public SavedData()
         {

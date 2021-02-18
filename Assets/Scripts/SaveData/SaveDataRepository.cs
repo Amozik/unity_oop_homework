@@ -12,6 +12,7 @@ namespace SaveData
         public static SaveDataRepository Instance => lazy.Value;
 
         private readonly IData<SavedData> _data;
+        private SavedData _savedData;
 
         private const string _folderName = "dataSave";
         private const string _fileName = "data.sv";
@@ -24,20 +25,24 @@ namespace SaveData
         {
             _data = new JsonData<SavedData>();
             _path = Path.Combine(Application.dataPath, _folderName);
+            _savedData = new SavedData();
         }
 
-        public void Save(IEnumerable<InteractiveObject> bonuses)
+        private void CreateDirectory()
         {
             if (!Directory.Exists(Path.Combine(_path)))
             {
                 Directory.CreateDirectory(_path);
             }
+        }
 
-            var saveData = new SavedData();
+        public void Save(IEnumerable<InteractiveObject> bonuses)
+        {
+            CreateDirectory();
 
             foreach (var bonus in bonuses)
             {
-                saveData.bonuses.Add(new Bonus()
+                _savedData.bonuses.Add(new Bonus()
                 {
                     Position = bonus.transform.localPosition,
                     IsEnabled = bonus.gameObject.activeInHierarchy,
@@ -45,7 +50,19 @@ namespace SaveData
                 });
             }
 
-            _data.Save(saveData, Path.Combine(_path, _fileName));
+            _data.Save(_savedData, Path.Combine(_path, _fileName));
+        }
+
+        public void Save(PlayerBase player)
+        {
+            CreateDirectory();
+            
+            _savedData.player = new Player()
+            {
+                Position = player.transform.position,
+            };
+            
+            _data.Save(_savedData, Path.Combine(_path, _fileName));
         }
 
         public void Load(List<InteractiveObject> bonuses)
