@@ -10,7 +10,7 @@ namespace General.Controllers
         public LevelInitialization(LevelConfig config)
         {
             _config = config;
-            Object.Instantiate(_config.prefab);
+            Object.Instantiate(_config.levelPrefab);
         }
         
         

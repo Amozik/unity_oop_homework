@@ -3,9 +3,9 @@
 namespace General
 {
     [CreateAssetMenu(fileName = "LevelConfig", menuName = "Configs/LevelConfig", order = 0)]
-    public class LevelConfig : ScriptableObject
+    public sealed partial class LevelConfig : ScriptableObject
     {
         public int totalPoints;
-        public GameObject prefab;
+        public GameObject levelPrefab;
     }
 }
