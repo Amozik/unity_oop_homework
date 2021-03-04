@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace General
 {
@@ -7,6 +9,8 @@ namespace General
         private Material _material;
         private float _lengthFlay;
         private Vector3 _localPosition;
+
+        public event Action<(string, Color)> OnCaughtPlayer = delegate((string, Color) bonus) {  };
         
         private void Awake()
         {
@@ -17,7 +21,7 @@ namespace General
 
         protected override void Interaction(GameObject player)
         {
-           
+            OnCaughtPlayer.Invoke((player.name, _material.color));
         }
         
         public override void PlayEffect(float deltaTime)

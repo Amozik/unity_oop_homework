@@ -1,4 +1,5 @@
 ﻿using General.Interfaces;
+using SaveData;
 using UnityEngine;
 
 namespace General.Controllers
@@ -35,6 +36,11 @@ namespace General.Controllers
         public void Execute(float deltaTime)
         {
             _playerBase.Move(_horizontal, 0.0f, _vertical);
+
+            if (Time.frameCount % 60 == 0)
+            {
+                SaveDataRepository.Instance.Save(_playerBase);
+            }
         }
 
         public void Cleanup()
